@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+bool isprime[10000000];
+ll c=0;
+int main()
+{
+	memset(isprime,true,sizeof(isprime));
+	isprime[0]=isprime[1]=false;
+	for(int i=2;i*i<10000000;i++)
+	{
+		if(isprime[i]==true)
+		{
+			for(int j=i*i;j<10000000;j+=i)
+			isprime[j]=false;
+		}
+	}
+	for(int i=0;i<10000000;i++)
+	if(isprime[i]==true)
+	c++;
+	cout<<c;
+	return 0;
+}
