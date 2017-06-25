@@ -1,2 +1,1 @@
-# Template-codes
-Pretty useful.
+Pretty useful to use directly.
