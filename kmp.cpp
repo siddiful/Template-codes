@@ -1,71 +1,37 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define ll long long int
+#define pb push_back
+#define mp make_pair
+#define MA 100010
 using namespace std;
-void computeLPSArray(char *pat, int M, int *lps);
-void KMPSearch(const char *pat, const char *txt)
-{
-    int M = strlen(pat);
-    int N = strlen(txt);
+string T,P;
+int b[MA],n,m;
 
-    int lps[M];
-
-    computeLPSArray(pat, M, lps);
-
-    int i = 0;  
-	    int j  = 0; 
-    while (i < N)
-    {
-        if (pat[j] == txt[i])
-        {
-            j++;
-            i++;
-        }
-
-        if (j == M)
-        {
-            printf("Found pattern at index %d \n", i-j);
-            j = lps[j-1];
-        }
-       else if (i < N && pat[j] != txt[i])
-        {
-            if (j != 0)
-                j = lps[j-1];
-            else
-                i = i+1;
-        }
-    }
+void kmpre(){
+	int i=0,j=-1;b[0]=-1;
+	while(i<m){
+		while(j>=0 && P[i]!=P[j])j=b[j];
+		i++;j++;
+		b[i]=j;
+	}
 }
 
-void computeLPSArray(char *pat, int M, int *lps)
-{
-    int len = 0;
-
-    lps[0] = 0;
-    int i = 1;
-    while (i < M)
-    {
-        if (pat[i] == pat[len])
-        {
-            len++;
-            lps[i] = len;
-            i++;
-        }
-        else
-            if (len != 0)
-            {
-                len = lps[len-1];
-            }
-            else 
-            {
-                lps[i] = 0;
-                i++;
-            }
-        }
-    }
-
-int main()
-{
-    string txt = "Siddharth Sukla";
-    string pat = "S";
-    KMPSearch(pat.c_str(), txt.c_str());
-    return 0;
+void kmp(){
+	int i=0,j=0;
+	while(i<n){
+		while(j>=0 && T[i]!=P[j])j=b[j];
+		i++;j++;
+		if(j==m){
+			printf("pattern found at %d.\n",i-j);
+			j=b[j];
+		}
+	}
 }
+int main(){
+	n=51;m=13;
+	getline(cin,T);
+	getline(cin,P);
+			kmpre();kmp();
+	return 0;
+}
+
